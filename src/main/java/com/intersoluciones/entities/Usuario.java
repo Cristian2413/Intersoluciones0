@@ -36,7 +36,7 @@ import lombok.NoArgsConstructor;
 public class Usuario implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
@@ -53,7 +53,7 @@ public class Usuario implements Serializable {
 	
 	@Basic(optional = false)
 	@Column(name = "telefono")
-	private String  telefono;
+	private String telefono;
 	
 	@Basic(optional = false)
 	@Column(name = "ciudad")
@@ -73,46 +73,38 @@ public class Usuario implements Serializable {
 	
 	@JoinColumn(name = "id_tipo_documento", referencedColumnName = "id_tipo_documento")
 	@ManyToOne(optional = true)
-	private String id_tipo_documento; 
+	private TipoDocumento tipoDocumento;
 	
 	@Basic(optional = true)
 	@Column(name = "bloqueado")
-	private Boolean bloqueado; 
-	
+	private Boolean bloqueado;
 	
 	@Basic(optional = true)
 	@Column(name = "usuario_creacion", insertable = true, updatable = false)
 	private String usuarioCreacion;
-
+	
 	@Basic(optional = true)
 	@Column(name = "fecha_creacion", insertable = true, updatable = false)
 	@CreatedDate
 	private Date fechaCreacion;
-
+	
 	@Basic(optional = true)
-	@Column(name = "usuario_modificacion",updatable = true, insertable = false )
+	@Column(name = "usuario_modificacion",updatable = true, insertable = false)
 	private String usuarioModifica;
-
+	
 	@Basic(optional = true)
 	@Column(name = "fecha_modificacion",updatable = true, insertable = false)
 	@LastModifiedDate
 	private Date fechaModifica;
-
+	
 	@Basic(optional = true)
 	@Column(name = "activo", insertable = true, updatable = true)
 	private Boolean activo;
+	
 
-	public void setId_tipo_Documento(Integer id_tipo_Documento2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public Integer getId_tipo_Documento() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	
 }
+
 
 

@@ -9,7 +9,7 @@ import org.mapstruct.factory.Mappers;
 import com.intersoluciones.dto.UsuarioDTO;
 import com.intersoluciones.entities.Usuario;
 
-@Mapper
+@Mapper(uses = TipoDocumentoMapper.class)
 public interface UsuarioMapper {
 
 UsuarioMapper INSTANCE = Mappers.getMapper(UsuarioMapper.class);
@@ -18,9 +18,8 @@ UsuarioMapper INSTANCE = Mappers.getMapper(UsuarioMapper.class);
 	
 	@InheritInverseConfiguration
 	Usuario dtoToEntity(UsuarioDTO usuario);
-
-	UsuarioDTO dtoToEntity(Usuario dto);
-
-	List<UsuarioDTO> benListToDtoList(List<Usuario> lista);
 	
+	UsuarioDTO dtoToEntity(Usuario dto);
+	
+	List<UsuarioDTO> benListToDtoList(List<Usuario> lista);
 }

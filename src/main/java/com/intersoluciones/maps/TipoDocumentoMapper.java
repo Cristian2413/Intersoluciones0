@@ -13,7 +13,7 @@ import com.intersoluciones.entities.TipoDocumento;
 public interface TipoDocumentoMapper {
 	
 	TipoDocumentoMapper INSTANCE = Mappers.getMapper(TipoDocumentoMapper.class);
-
+	
 	TipoDocumentoDTO entityToDto(TipoDocumentoDTO tipodocumento);
 	
 	@InheritInverseConfiguration

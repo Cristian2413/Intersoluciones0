@@ -10,9 +10,7 @@ public class Utils {
 	public static ResponseDTO mapearRespuesta(final String message, final Integer statusCode,
 			final Object objResponse) {
 		ResponseDTO response = new ResponseDTO();
-		response.setMessage(message);
-		
-
+		response.setMessage(message);		
 		return response;
 	}
 
@@ -21,9 +19,7 @@ public class Utils {
 	 */
 	public static ResponseDTO mapearRespuesta(final String message, final Integer statusCode) {
 		ResponseDTO response = new ResponseDTO();
-		response.setMessage(message);
-		
-
+		response.setMessage(message);		
 		return response;
 	}
 	
