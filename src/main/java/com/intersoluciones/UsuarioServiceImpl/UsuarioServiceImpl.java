@@ -2,12 +2,10 @@ package com.intersoluciones.UsuarioServiceImpl;
 
 import java.util.List;
 
-
-
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 
 import com.intersoluciones.dto.ResponseDTO;
 import com.intersoluciones.dto.TipoDocumentoDTO;
@@ -29,14 +27,14 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	
 	private final UsuarioRepository usuarioRepository;
 	private final TipoDocumentoRepository tipodocumentoRepository;
-		
-	@Override
-	public ResponseEntity<ResponseDTO> obtenerTipoDocumento(){
-		List<TipoDocumentoDTO> tipodocumentoDTO = TipoDocumentoMapper.INSTANCE.benListToDtoList(this.tipodocumentoRepository.findAll());
-		ResponseDTO responseDTO = new ResponseDTO(HttpStatus.OK.name(),HttpStatus.OK.value(),tipodocumentoDTO);
-				return new ResponseEntity<>(responseDTO,HttpStatus.OK);
-	}
 	
+    @Override
+    public List<TipoDocumentoDTO> consultarTipoDocumento() {
+        List<TipoDocumento> tiposDocumento = tipodocumentoRepository.findAll();
+        List<TipoDocumentoDTO> tipoDocumentoDTOs = ((UsuarioMapper) TipoDocumentoMapper.INSTANCE).benListToDtoList(tiposDocumento);
+        return tipoDocumentoDTOs;
+    }
+		
 	@Override
 	public ResponseEntity<ResponseDTO> crearUsuario(UsuarioDTO usuarioDTO) {
 		Usuario usuario = UsuarioMapper.INSTANCE.dtoToEntity(usuarioDTO);
@@ -52,22 +50,29 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		ResponseDTO responseDTO =new ResponseDTO(HttpStatus.CREATED.name(),HttpStatus.CREATED.value(),tipodocumento);
 		return new ResponseEntity<>(responseDTO,HttpStatus.CREATED);
 	}
-	
+		
 	@Override
-	public ResponseEntity<ResponseDTO> eliminarUsuario (Integer id) {
-		usuarioRepository.deleteById(id);
-		ResponseDTO responseDTO = new ResponseDTO(null, HttpStatus.OK.value(), "Usuario eliminado");
-		return new ResponseEntity<>(responseDTO, HttpStatus.OK);	
+	public ResponseEntity<ResponseDTO> eliminarUsuario(Integer id_usuario) {
+        try {
+            usuarioRepository.deleteById(id_usuario);
+            ResponseDTO responseDTO = new ResponseDTO(null, HttpStatus.OK.value(), "Usuario eliminado");
+            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        } catch (EmptyResultDataAccessException ex) {
+            // Manejar caso de usuario no encontrado
+            ResponseDTO responseDTO = new ResponseDTO(null, HttpStatus.NOT_FOUND.value(), "Usuario no  encontrado");
+            return new ResponseEntity<>(responseDTO, HttpStatus.NOT_FOUND);
+        } 
 	}
 
-	public ResponseEntity<ResponseDTO> actualizar(UsuarioDTO usuarioDTO) {
-		return null;
+	@Override
+	 public ResponseEntity<ResponseDTO> actualizarUsuario(UsuarioDTO usuarioDTO) {
+	       
+	        // Actualizar los datos del usuario existente con los datos de usuarioDTO
+	        usuarioRepository.save(UsuarioMapper.INSTANCE.dtoToEntity(usuarioDTO));
+
+	        ResponseDTO responseDTO = new ResponseDTO("Usuario actualizado con éxito", null, null);
+	        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
 	}
 
 }
-		
-
-
-	
-
 

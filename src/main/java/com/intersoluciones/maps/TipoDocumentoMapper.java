@@ -17,11 +17,15 @@ public interface TipoDocumentoMapper {
 	TipoDocumentoDTO entityToDto(TipoDocumentoDTO tipodocumento);
 	
 	@InheritInverseConfiguration
-	TipoDocumento dtoToEntity(TipoDocumentoDTO tipodocumento);
 
 	TipoDocumentoDTO dtoToEntity(TipoDocumento dto);
 
-	List<TipoDocumentoDTO> benListToDtoList(List<TipoDocumento> lista);
+	TipoDocumentoDTO tipoDocumentoToDto(TipoDocumento tipoDocumento);
+
+	TipoDocumento dtoToEntity(TipoDocumentoDTO tipodocumentoDTO);
+
+
+
 	
 }
 

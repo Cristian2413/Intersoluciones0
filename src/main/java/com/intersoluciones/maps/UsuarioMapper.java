@@ -6,7 +6,9 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+import com.intersoluciones.dto.TipoDocumentoDTO;
 import com.intersoluciones.dto.UsuarioDTO;
+import com.intersoluciones.entities.TipoDocumento;
 import com.intersoluciones.entities.Usuario;
 
 @Mapper(uses = TipoDocumentoMapper.class)
@@ -17,9 +19,7 @@ UsuarioMapper INSTANCE = Mappers.getMapper(UsuarioMapper.class);
 	UsuarioDTO entityToDto(UsuarioDTO usuario);
 	
 	@InheritInverseConfiguration
-	Usuario dtoToEntity(UsuarioDTO usuario);
+	Usuario dtoToEntity(UsuarioDTO usuario);	
 	
-	UsuarioDTO dtoToEntity(Usuario dto);
 	
-	List<UsuarioDTO> benListToDtoList(List<Usuario> lista);
 }

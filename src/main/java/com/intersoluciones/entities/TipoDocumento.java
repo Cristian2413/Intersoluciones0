@@ -16,6 +16,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,6 +30,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "pa_tipo_documento",schema="configuracion")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @EntityListeners (AuditingEntityListener.class)
 @Where(clause = "activo = true")
 

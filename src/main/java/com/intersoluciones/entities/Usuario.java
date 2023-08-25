@@ -1,7 +1,7 @@
 package com.intersoluciones.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -19,6 +19,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,17 +32,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "usuario",schema="seguridad")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @EntityListeners(AuditingEntityListener.class)
 @Where(clause = "activo = true")
 
-public class Usuario implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
+public class Usuario implements Serializable  {
+
+@SuppressWarnings("unused")
+private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
-	@Column(name = "id_usuario")
+	@Column(name= "id_usuario")
 	private Integer id_usuario;
 	
 	@Basic(optional = false)
@@ -100,10 +104,7 @@ public class Usuario implements Serializable {
 	@Basic(optional = true)
 	@Column(name = "activo", insertable = true, updatable = true)
 	private Boolean activo;
-	
-
-
-	
+		
 }
 
 

@@ -1,5 +1,7 @@
 package com.intersoluciones.controller;
 
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,6 +18,7 @@ import com.intersoluciones.UsuarioServiceImpl.UsuarioServiceImpl;
 import com.intersoluciones.dto.ResponseDTO;
 import com.intersoluciones.dto.TipoDocumentoDTO;
 import com.intersoluciones.dto.UsuarioDTO;
+import com.intersoluciones.entities.TipoDocumento;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,10 +30,10 @@ import lombok.RequiredArgsConstructor;
 public class UsuarioController {
 	
 	private final UsuarioServiceImpl serviceUsuario;
-	
-	@GetMapping
-	public ResponseEntity<ResponseDTO> obtenerTipoDocumento() {
-		return this.serviceUsuario.obtenerTipoDocumento();
+	 
+	@GetMapping()
+	public List<TipoDocumentoDTO> consultarTipoDocumento() {
+		return serviceUsuario.consultarTipoDocumento();
 	}
 	
 	@PostMapping("/crear/Usuario")
@@ -43,17 +46,18 @@ public class UsuarioController {
         return serviceUsuario.crearTipoDocumento(tipodocumentoDTO);
     }
 	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<ResponseDTO> eliminarUsuario(@PathVariable Integer id) {
-		return this.serviceUsuario.eliminarUsuario(id);
-	}
+
+	@DeleteMapping("/eliminar/{id_usuario}")
+    public ResponseEntity<ResponseDTO> eliminarUsuario(@PathVariable Integer id_usuario) {
+        return serviceUsuario.eliminarUsuario(id_usuario);
+    }
 	
 	@PutMapping("/actualizar")
-	public ResponseEntity<ResponseDTO> actualizarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
-		return serviceUsuario.actualizar(usuarioDTO);
-	}
-	
+	   public ResponseEntity<ResponseDTO> actualizarUsuario(@RequestBody UsuarioDTO usuarioDTO ) {   
+	   	return serviceUsuario.actualizarUsuario(usuarioDTO);
+	   }
 }
+
 	
 
 
